@@ -1,0 +1,122 @@
+# To complete the following drills, you'll need to use your Python skills to create some datasets,
+# then use your new statistical knowledge to summarize them. 
+# Choose 6 distributions from the list of random distributions available in NumPy, called “Distributions”
+
+############## power distribution#############
+import numpy as np
+import matplotlib.pyplot as plt
+
+power_distribution = np.random.power(1, 100)
+plt.hist(power_distribution) #Plot a histogram.
+
+
+plt.axvline(power_distribution.mean(), color='b', linestyle='solid', linewidth=2) #Mean
+plt.axvline(power_distribution.mean() + power_distribution.std(), color='b', linestyle='dashed', linewidth=2) #one stdev above the mean
+plt.axvline(power_distribution.mean()-power_distribution.std(), color='b', linestyle='dashed', linewidth=2) #one stdev below the mean
+
+
+plt.show()# Print the histogram
+
+appropriatevariablename = np.random.power(1, 100)
+
+#Plot a histogram.
+plt.hist(appropriatevariablename)
+
+# Print the histogram
+plt.show()
+
+############# uniform ##############
+
+uniform_distribution = np.random.uniform(1, 50, 100)
+plt.hist(uniform_distribution)
+
+
+plt.axvline(uniform_distribution.mean(), color='b', linestyle='solid', linewidth=2) #Mean
+plt.axvline(uniform_distribution.mean() + uniform_distribution.std(), color='b', linestyle='dashed', linewidth=2) #one stdev above the mean
+plt.axvline(uniform_distribution.mean()-uniform_distribution.std(), color='b', linestyle='dashed', linewidth=2) #one stdev below the mean
+
+
+
+
+plt.show()
+
+############# logseries ##############
+
+logseries_dist = np.random.logseries(0.05, 100)
+plt.hist(logseries_dist)
+
+
+plt.axvline(logseries_dist.mean(), color='b', linestyle='solid', linewidth=2) #Mean
+plt.axvline(logseries_dist.mean() + logseries_dist.std(), color='b', linestyle='dashed', linewidth=2) #one stdev above the mean
+plt.axvline(logseries_dist.mean()-logseries_dist.std(), color='b', linestyle='dashed', linewidth=2) #one stdev below the mean
+
+
+
+
+plt.show()
+
+
+############# geometric ##############
+
+geometric_dist = np.random.geometric(0.05, 100)
+plt.hist(geometric_dist)
+
+
+
+plt.axvline(geometric_dist.mean(), color='b', linestyle='solid', linewidth=2) #Mean
+plt.axvline(geometric_dist.mean() + geometric_dist.std(), color='b', linestyle='dashed', linewidth=2) #one stdev above the mean
+plt.axvline(geometric_dist.mean()-geometric_dist.std(), color='b', linestyle='dashed', linewidth=2) #one stdev below the mean
+
+
+
+
+plt.show()
+
+
+############# binomial ##############
+
+
+
+binomial_dist = np.random.binomial(20, 0.05, 100)
+plt.hist(binomial_dist)
+
+
+plt.axvline(binomial_dist.mean(), color='b', linestyle='solid', linewidth=2) #Mean
+plt.axvline(binomial_dist.mean() + binomial_dist.std(), color='b', linestyle='dashed', linewidth=2) #one stdev above the mean
+plt.axvline(binomial_dist.mean()-binomial_dist.std(), color='b', linestyle='dashed', linewidth=2) #one stdev below the mean
+
+
+
+plt.show()
+
+
+############# standard_cauchy ##############
+
+
+standard_cauchy_dist = np.random.standard_cauchy(100)
+plt.hist(standard_cauchy_dist)
+
+
+plt.axvline(standard_cauchy_dist.mean(), color='b', linestyle='solid', linewidth=2) #Mean
+plt.axvline(standard_cauchy_dist.mean() + standard_cauchy_dist.std(), color='b', linestyle='dashed', linewidth=2) #one stdev above the mean
+plt.axvline(standard_cauchy_dist.mean()-standard_cauchy_dist.std(), color='b', linestyle='dashed', linewidth=2) #one stdev below the mean
+
+
+
+plt.show()
+
+######## ADDITIONAL ASSIGNMENT ##########
+normal_dist_1 = np.random.normal(5, 0.5, 100)
+normal_dist_2 = np.random.normal(10, 1, 100)
+
+add_norm_dist = normal_dist_1 + normal_dist_2
+
+plt.hist(add_norm_dist)
+
+
+plt.axvline(add_norm_dist.mean(), color='b', linestyle='solid', linewidth=2) #Mean
+plt.axvline(add_norm_dist.mean() + add_norm_dist.std(), color='b', linestyle='dashed', linewidth=2) #one stdev above the mean
+plt.axvline(add_norm_dist.mean()-add_norm_dist.std(), color='b', linestyle='dashed', linewidth=2) #one stdev below the mean
+
+
+plt.show()
