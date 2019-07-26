@@ -1,0 +1,26 @@
+import numpy as np
+import pandas as pd
+import scipy
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+
+pop1 = np.random.binomial(10, 0.2, 1000)
+pop2 = np.random.binomial(10,0.5, 1000) 
+
+# Let’s make histograms for the two groups. 
+
+plt.hist(pop1, alpha=0.5, label='Population 1') 
+plt.hist(pop2, alpha=0.5, label='Population 2') 
+plt.legend(loc='upper right')
+
+
+print(pop1.mean())
+print(pop2.mean())
+print(pop1.std())
+print(pop2.std())
+
+
+
+plt.show()
+
