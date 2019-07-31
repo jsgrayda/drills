@@ -1,0 +1,49 @@
+-- DRILL 1
+SELECT COUNT(*)
+FROM public.vehicles; --33442 vehicles
+
+--DRILL 2
+SELECT *
+FROM public.vehicles;
+
+--DRILL 3
+--id, make, model fields for 2010 models
+SELECT id, make, model
+FROM public.vehicles
+WHERE year = 2010;
+
+--DRILL 4
+--return count of vehicles from 2010
+--provide the answer
+SELECT COUNT(*)
+FROM public.vehicles
+WHERE year = 2010; --1109 vehicles
+
+--DRILL 5
+--return count of vehicles in table from 2010 and 2015, inclusive
+--provide query + answer
+SELECT COUNT(*)
+FROM public.vehicles
+WHERE year >= 2010 and year <= 2015;
+
+--DRILL 6
+--return count of vehicles in table from 1990, 2000, and 2010
+--provide query + answer
+SELECT COUNT(*)
+FROM public.vehicles
+WHERE year = 1990 OR year = 2000 OR year = 2010; -- 3026 vehicles
+
+--DRILL 7
+
+
+--DRILL 8
+-- dunno how to take the avg...
+--return: year, make, model, and field called average_mpg
+--average_mpg is average highway/city fuel consumption
+SELECT year,
+make,
+model,
+AVG (hwy, cty) AS average_mpg
+FROM public.vehicles;
+
+--DRILL 9
