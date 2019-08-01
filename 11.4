@@ -34,16 +34,48 @@ FROM public.vehicles
 WHERE year = 1990 OR year = 2000 OR year = 2010; -- 3026 vehicles
 
 --DRILL 7
+--return count of records between 1987 and 2005
+--1990 and 2000 are exclusive
+SELECT COUNT(*)
+FROM vehicles
+WHERE year BETWEEN 1987 and 2005
+AND year NOT IN (1990, 2000); --key
 
 
 --DRILL 8
--- dunno how to take the avg...
 --return: year, make, model, and field called average_mpg
 --average_mpg is average highway/city fuel consumption
-SELECT year,
-make,
-model,
-AVG (hwy, cty) AS average_mpg
+SELECT year, make, model, AVG(hwy/cty) AS average_mpg
 FROM public.vehicles;
 
 --DRILL 9
+--year, make, model, and a text field displaying “X highway; Y city.”
+SELECT year, make, model, hwy || 'highway; ' || cty ||'city' AS hwy_city 
+FROM public.vehicles;
+
+--DRILL 10
+-- for all records that have NULL for either the cyl or displ fields.
+SELECT  id, make, model, year
+FROM public.vehicles
+WHERE cyl IS NULL OR displ IS NULL;
+
+--DRILL 11
+SELECT *
+FROM public.vehicles
+WHERE 
+	year >=2000 AND
+	drive = 'Rear-Wheel Drive' AND
+	fuel = 'Diesel' --year and hwy mileage descending
+ORDER BY year, hwy;
+
+--DRILL 12
+--counts the number of vehicles 
+--either Fords or Chevrolets and 
+--either compact cars or 2-seaters. Provide the query and the answer.
+SELECT COUNT(*)
+FROM public.vehicles
+WHERE make = 'Ford' OR make = 'Chevrolet' AND
+	class = 'Compact Cars' OR class = 'Two Seaters'; --4625, but the answer is 612
+  
+ --DRILL 13
+ 
