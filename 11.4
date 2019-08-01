@@ -78,4 +78,41 @@ WHERE make = 'Ford' OR make = 'Chevrolet' AND
 	class = 'Compact Cars' OR class = 'Two Seaters'; --4625, but the answer is 612
   
  --DRILL 13
- 
+ SELECT *
+FROM public.vehicles
+ORDER BY hwy ASC
+LIMIT 10;
+
+--DRILL 14
+SELECT *
+FROM public.vehicles
+WHERE 
+	year >= 2000
+	AND model LIKE 'X%' --starts with capital x, if change to lower case, results of query are different
+ORDER BY make; 
+
+--DRILL 15
+--returns the count of records where the “cyl” field is NULL. 
+--Provide the query as well as the answer.
+SELECT COUNT(*)
+FROM public.vehicles
+WHERE 
+	cyl IS NULL;
+
+--DRILL 16
+--returns the count of all records before the year 2000 
+--more than 20 mpg hwy
+-- greater than 3 liters displacement (“displ” field).
+--Provide the query as well as the answer.
+SELECT COUNT(*)
+FROM public.vehicles
+WHERE 
+	year < 2000
+	AND hwy > 20
+	AND displ > 3;
+
+--DRILL 17
+--model name has a (capital) X in its 3rd position
+SELECT *
+FROM public.vehicles
+WHERE model LIKE '__X';
