@@ -1,0 +1,33 @@
+--1
+SELECT *
+FROM naep;
+
+
+--2
+SELECT *
+FROM naep
+LIMIT 50;
+
+--3
+SELECT 
+	COUNT(avg_math_4_score) AS avg_math_4_score_COUNT,
+	AVG(avg_math_4_score) AS avg_math_4_score_AVG,
+	MIN(avg_math_4_score) AS avg_math_4_score_MIN,
+	MAX(avg_math_4_score) AS avg_math_4_score_MAX,
+	state
+FROM naep
+GROUP BY naep.state
+ORDER BY naep.state ASC;
+
+--4
+SELECT 
+	COUNT(avg_math_4_score) AS avg_math_4_score_COUNT,
+	AVG(avg_math_4_score) AS avg_math_4_score_AVG,
+	MIN(avg_math_4_score) AS avg_math_4_score_MIN,
+	MAX(avg_math_4_score) AS avg_math_4_score_MAX,
+	state
+FROM naep
+GROUP BY naep.state
+HAVING (MAX(avg_math_4_score) - MIN(avg_math_4_score)) > 30
+ORDER BY naep.state ASC;
+
