@@ -1,0 +1,135 @@
+--DRILL 2
+--returns the namefirst and namelast fields of the people table, 
+--along with the inducted field from the hof_inducted table. 
+--All rows from the people table should be returned, 
+--and NULL values for the fields from hof_inducted should be returned when there is no match found.
+SELECT people.namefirst, people.namelast, hof_inducted.inducted
+FROM people LEFT OUTER JOIN hof_inducted
+ON people.playerid = hof_inducted.playerid;
+
+--DRILL 3
+--returns the first and last names, 
+--birth and death dates, and birth countries for these players. 
+--Note that the year of induction was 2006, and the value for votedby will be “Negro League.”
+SELECT 
+	people.namefirst, people.namelast, people.birthyear, people.deathyear, people.birthcountry
+FROM people LEFT OUTER JOIN hof_inducted
+ON people.playerid = hof_inducted.playerid
+WHERE 
+	hof_inducted.yearid = 2006 AND
+	hof_inducted.votedby = 'Negro League';
+  
+--DRILL 4
+--returns the yearid, playerid, teamid, and salary fields from the salaries table, 
+--along with the category field from the hof_inducted table. 
+--Keep only the records that are in both salaries and hof_inducted. 
+SELECT 
+	salaries.yearid, salaries.playerid, salaries.teamid, salaries.salary,
+	hof_inducted.category
+FROM salaries JOIN hof_inducted
+ON salaries.playerid = hof_inducted.playerid;
+
+--DRILL 5
+--returns the playerid, yearid, teamid, lgid, and salary fields from the salaries table 
+--and the inducted field from the hof_inducted table. Keep all records from both tables.
+SELECT 
+	salaries.playerid, salaries.yearid, salaries.lgid, salaries.teamid, salaries.salary,
+	hof_inducted.inducted
+FROM salaries FULL OUTER JOIN hof_inducted
+ON salaries.playerid = hof_inducted.playerid;
+
+--DRILL 6
+SELECT *
+FROM hof_inducted FULL OUTER JOIN hof_not_inducted
+ON hof_inducted.playerid = hof_not_inducted.playerid; --not this one tho bc they want to COMBINE them both
+
+SELECT * FROM hof_inducted
+UNION ALL
+SELECT * FROM hof_not_inducted; -- UNION makes the most sense
+
+--DRILL 7 ,, 
+--returns the last name, first name (see people table), 
+--and total recorded salaries for all players found in the salaries table. ??
+
+
+SELECT people.namelast, people.namefirst, SUM(salaries.salary) 
+FROM people RIGHT OUTER JOIN salaries
+ON people.playerid = salaries.playerid;
+
+
+--DRILL 8
+--Write a query that returns all records from the hof_inducted and hof_not_inducted tables 
+--that include playerid, yearid, namefirst, and namelast.
+--Hint: Each FROM statement will include a LEFT OUTER JOIN!
+SELECT hof_inducted.playerid, yearid, namefirst, namelast 
+FROM hof_inducted LEFT OUTER JOIN people
+ON hof_inducted.playerid = people.playerid
+
+UNION ALL 
+
+SELECT hof_not_inducted.playerid, yearid, namefirst, namelast 
+FROM hof_not_inducted LEFT OUTER JOIN people
+ON hof_not_inducted.playerid = people.playerid;
+
+--DRILL 9
+-- this one says 
+--return all records from both hof_inducted and hof_not_inducted, and include a new field, namefull,
+--but doesn't look like all records will be returned
+SELECT concat(namelast,', ', namefirst) AS namefull, yearid, inducted
+FROM hof_inducted LEFT OUTER JOIN people
+ON hof_inducted.playerid = people.playerid
+WHERE yearid >= 1980
+
+
+--DRILL 10
+--returns the highest annual salary for each teamid, 
+--ranked from high to low, along with the corresponding playerid.
+
+SELECT MAX(salary), teamid
+FROM salaries
+GROUP BY teamid, salary
+ORDER BY salary DESC;
+
+--DRILL 11
+--Select birthyear, deathyear, namefirst, and namelast 
+--of all the players born since the birth year of Babe Ruth (playerid = ruthba01). 
+--Sort the results by birth year from low to high.
+
+SELECT birthyear, deathyear, namefirst, namelast
+FROM people
+WHERE birthyear >
+	(SELECT birthyear
+	FROM people
+	WHERE playerid = 'ruthba01')
+ORDER BY birthyear ASC;
+
+--DRILL 12
+--Using the people table, write a query that returns namefirst, namelast, and a field called usaborn where. 
+--The usaborn field should show the following: 
+--if the player's birthcountry is the USA, then the record is 'USA.' 
+--Otherwise, it's 'non-USA.' Order the results by 'non-USA' records first.
+SELECT namefirst, namelast,
+	CASE
+        	WHEN birthcountry = 'USA' THEN 'USA'
+   	    	ELSE 'non-USA'
+	END as usaborn
+FROM people
+ORDER BY usaborn ASC;
+
+--DRILL 13
+
+--Calculate the average height 
+--for players throwing with their right hand versus their left hand. 
+--Name these fields right_height and left_height, respectively.
+SELECT 
+AVG(CASE WHEN throws = 'R' THEN height END) AS right_height,
+AVG(CASE WHEN throws = 'L' THEN height END) AS left_height
+FROM people;
+
+
+--DRILL 14
+--Get the average of each team's maximum player salary since 2010. 
+SELECT teamid, MAX(salary)
+FROM salaries
+GROUP BY teamid;
+  
