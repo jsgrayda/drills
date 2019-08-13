@@ -1,0 +1,33 @@
+import numpy as np # import programs
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+data = pd.read_csv('OnlineNewsPopularity copy.csv') #import file
+data.describe() #describe data
+
+# one variable and plot that variable four different ways
+sns.scatterplot(x=' shares',y=' shares',data=data)
+g = sns.catplot(x=' shares',y=' shares',data=data, kind="strip")
+g = sns.lmplot(x=' shares',y=' shares',data=data)
+g = sns.catplot(x=' shares',y=' shares',data=data, kind="bar")
+
+# two continuous variables, and plot them three different ways
+g = sns.catplot(x=' shares',y=' num_videos',data=data, kind="bar")
+g = sns.lmplot(x=' shares',y=' num_videos',data=data)
+sns.scatterplot(x=' shares',y=' num_videos',data=data)
+
+#Choose one continuous variable and one categorical variable, and plot them six different ways.
+sns.scatterplot(x=' shares',y=' is_weekend',data=data)
+g = sns.lmplot(x=' shares',y=' is_weekend',data=data)
+g = sns.lineplot(x=' shares',y=' is_weekend', data=data)
+g = sns.catplot(x=' shares',y=' is_weekend',data=data, kind="bar")
+g = sns.jointplot(x=' shares',y=' is_weekend', data=data)
+g = sns.swarmplot(x=' shares',y=' is_weekend', data=data)
+
+#Find a dataset with at least four continuous variables and one categorical variable. 
+#Create one master plot that gives insight into the variables and their interrelationships,
+
+# Need help figuring out which one plot to use for 5 different variables into 1 master plot. 
+#helpful link : http://seaborn.pydata.org/examples/index.html
