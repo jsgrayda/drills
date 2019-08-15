@@ -1,5 +1,5 @@
-#determine the FIVE MOST COMMON journals and the total articles for each.
-#calculate the mean, median, and standard deviation of the open-access cost per article for each journal.
+####determine the FIVE MOST COMMON journals and the total articles for each.
+
 
 import numpy as np
 import pandas as pd
@@ -11,10 +11,12 @@ data = pd.read_csv('WELLCOME_APCspend2013_forThinkful_noeuro.csv', encoding = 'l
 #data.info() 
 del_missinginfo = data.dropna() # 1928 rows x 5 columns, so then all rows with any missing information is missing
 
-all_lowercase = del_missinginfo['Journal title'].str.lower() # all lower case
+def all_lower(x): #make input lowercase
+    return x.str.lower()
 
-all_lowercase.value_counts().head(5) #found value count of each occurance in the column
-# might need to homogenize them tho
+all_lowercase = del_missinginfo.apply(all_lower) # the entire contents in the table are now lowercase
+
+all_lowercase['Journal title'].value_counts().head(5)
 
 #plos one                                                      188
 #journal of biological chemistry                                52
@@ -23,3 +25,32 @@ all_lowercase.value_counts().head(5) #found value count of each occurance in the
 #plos genetics                                                  23
 
 
+####calculate the mean, median, and standard deviation of the open-access cost per article for each journal.
+
+journal_1 = all_lowercase[all_lowercase["Journal title"] == 'plos one'] #.describe() doesn't output these summ stats bc it's a series
+journal_1['Cost (no euro sign)'].mean
+journal_1['Cost (no euro sign)'].median
+journal_1['Cost (no euro sign)'].std
+
+journal_2 = all_lowercase[all_lowercase["Journal title"] == 'journal of biological chemistry'] 
+journal_2['Cost (no euro sign)'].mean
+journal_2['Cost (no euro sign)'].median
+journal_2['Cost (no euro sign)'].std
+
+journal_3 = all_lowercase[all_lowercase["Journal title"] == 'neuroimage'] 
+journal_3['Cost (no euro sign)'].mean
+journal_3['Cost (no euro sign)'].median
+journal_3['Cost (no euro sign)'].std
+
+journal_4 = all_lowercase[all_lowercase["Journal title"] == 'plos pathogens'] 
+journal_4['Cost (no euro sign)'].mean
+journal_4['Cost (no euro sign)'].median
+journal_4['Cost (no euro sign)'].std
+
+journal_5 = all_lowercase[all_lowercase["Journal title"] == 'plos genetics'] 
+journal_5['Cost (no euro sign)'].mean
+journal_5['Cost (no euro sign)'].median
+journal_5['Cost (no euro sign)'].std
+
+# discuss w mentor, if time, on how to make this code cleaner, pretty repetetive and could be much simpler
+# maybe use for loops ?
