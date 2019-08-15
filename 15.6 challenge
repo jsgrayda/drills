@@ -1,0 +1,25 @@
+#determine the FIVE MOST COMMON journals and the total articles for each.
+#calculate the mean, median, and standard deviation of the open-access cost per article for each journal.
+
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+data = pd.read_csv('WELLCOME_APCspend2013_forThinkful_noeuro.csv', encoding = 'latin1') #need encoding
+
+#data.info() 
+del_missinginfo = data.dropna() # 1928 rows x 5 columns, so then all rows with any missing information is missing
+
+all_lowercase = del_missinginfo['Journal title'].str.lower() # all lower case
+
+all_lowercase.value_counts().head(5) #found value count of each occurance in the column
+# might need to homogenize them tho
+
+#plos one                                                      188
+#journal of biological chemistry                                52
+#neuroimage                                                     28
+#plos pathogens                                                 24
+#plos genetics                                                  23
+
+
