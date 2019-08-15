@@ -1,0 +1,37 @@
+# calculate t values
+#𝑦1¯=5 ,  𝑦2¯=8 ,  𝑠1=1 ,  𝑠2=3 ,  𝑁1=200 ,  𝑁2=500 
+#𝑦1¯=1090 ,  𝑦2¯=999 ,  𝑠1=400 ,  𝑠2=30 ,  𝑁1=900 ,  𝑁2=100 
+#𝑦1¯=45 ,  𝑦2¯=40 ,  𝑠1=45 ,  𝑠2=40 ,  𝑁1=2000 ,  𝑁2=2000
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scipy.stats as stats
+
+y1 = [5, 1090, 45]
+y2 = [8, 999, 40]
+s1 = [1, 400, 45]
+s2 = [3, 30, 40]
+N1 = [200, 900, 2000]
+N2 = [500, 100, 2000]
+
+for y1_value in y1:
+    for y2_value in y2:
+        prod = y1_value * y2_value
+        #print (prod)
+        
+numer = [y1_value - y2_value for y1_value, y2_value in zip(y1,y2)] # for the numerator
+#print (numer)
+
+denom_1 = [((s1_value** 2)/N1_value) for s1_value, N1_value in zip(s1,N1)]
+#print (denom_1)
+
+denom_2 = [((s2_value** 2)/N2_value) for s2_value, N2_value in zip(s2,N2)]
+#print (denom_2)
+
+denom = [denom_1_val + denom_2_val for denom_1_val, denom_2_val in zip(denom_1, denom_2)]
+#print(denom)
+
+t_val = [numer_val / denom_val for numer_val, denom_val in zip (denom_1, denom_2)]
+print (t_val)
