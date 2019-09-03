@@ -1,0 +1,25 @@
+#programs
+%matplotlib inline
+import numpy as np
+import pandas as pd
+import scipy
+#import sklearn
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+#open file
+df = pd.read_csv("Supervised learning_solving classification problems_challenge.csv", encoding = 'latin1') 
+print (df) 
+
+#value count of each type in 'Score' column
+print (df['Score'].value_counts())
+
+#make pie chart
+labels = ['1s', '0s']
+sizes = [50.0, 50.0]
+colors = ['lightskyblue', 'lightcoral']
+patches, texts = plt.pie(sizes, colors=colors, shadow=True, startangle=90)
+plt.legend(patches, labels, loc="best")
+plt.axis('equal')
+plt.tight_layout()
+plt.show()
