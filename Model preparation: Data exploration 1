@@ -1,0 +1,39 @@
+#1
+education_df.describe()
+
+
+#2
+filter = education_df["STATE"]=="CALIFORNIA"
+CA_total_expenditure_winsorized = winsorize(education_df['TOTAL_EXPENDITURE'].where(filter))
+plt.hist(CA_total_expenditure_winsorized)
+
+#3
+#In your chosen state, which of the lessons are the students more successful, math or reading
+#AVG_MATH_4_SCORE                64.075067
+#AVG_MATH_8_SCORE                64.343164
+#AVG_READING_4_SCORE             64.276139
+#AVG_READING_8_SCORE             66.621984
+CA_math_mean_4 = education_df['AVG_MATH_4_SCORE'].where(filter).mean()
+CA_math_mean_8 = education_df['AVG_MATH_8_SCORE'].where(filter).mean()
+CA_reading_mean_4 = education_df['AVG_READING_4_SCORE'].where(filter).mean()
+CA_reading_mean_8 = education_df['AVG_READING_8_SCORE'].where(filter).mean()
+print('mean math scores for CA: %d and %d' % (CA_math_mean_4, CA_math_mean_8))
+print('mean reading scores for CA: %d and %d' % (CA_reading_mean_4, CA_reading_mean_8))
+
+#4
+#What are the distributions of the math and reading scores in the sample?
+education_df['AVG_MATH_4_SCORE'].where(filter).describe()
+
+education_df['AVG_MATH_8_SCORE'].where(filter).describe()
+
+education_df['AVG_READING_4_SCORE'].where(filter).describe()
+
+education_df['AVG_READING_8_SCORE'].where(filter).describe()
+
+#5
+#Notice there are too many missing values for math and reading scores. 
+#Fill out the missing values using mean, median, and linear interpolation. 
+#Then compare the effects of these techniques on the distributions of the score variables.
+
+print(education_df['AVG_MATH_4_SCORE'].where(filter))
+#youtube_df["Video Uploads"].fillna(youtube_df["Video Uploads"].mean()) #mean, median, linear interpolation(?)
