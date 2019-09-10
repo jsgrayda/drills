@@ -1,0 +1,104 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from sqlalchemy import create_engine
+import warnings
+
+
+postgres_user = 'dsbc_student'
+postgres_pw = '7*.8G9QH21'
+postgres_host = '142.93.121.174'
+postgres_port = '5432'
+postgres_db = 'studentsperformance'
+
+engine = create_engine('postgresql://{}:{}@{}:{}/{}'.format(
+    postgres_user, postgres_pw, postgres_host, postgres_port, postgres_db))
+
+studentsperformance_df = pd.read_sql_query('select * from studentsperformance',con=engine)
+
+# no need for an open connection, 
+# as we're only doing a single query
+engine.dispose()
+
+
+
+
+
+#1
+
+
+#Are there any differences between the genders, ethnicities, and 
+#parental level of education with respect to their performances in exams?
+
+# gender v performance
+# enthnicity v performance
+# parental lvl education v perfomance
+
+# but make sure to clean up data
+# winsorize
+plt.figure(figsize=(18,5))
+
+plt.subplot(1,3,1)
+plt.scatter(studentsperformance_df["gender"], studentsperformance_df["math score"])
+plt.title("gender v performance in math)")
+
+plt.subplot(1,3,2)
+plt.scatter(studentsperformance_df["race/ethnicity"], studentsperformance_df["math score"])
+plt.title("enthnicity v performance")
+
+plt.subplot(1,3,3)
+plt.scatter(studentsperformance_df["parental level of education"], studentsperformance_df["math score"])
+plt.title("parental lvl education v perfomance")
+
+plt.show()
+
+
+
+
+#2
+
+
+plt.figure(figsize=(18,5))
+
+plt.subplot(1,3,1)
+plt.scatter(studentsperformance_df["lunch"], studentsperformance_df["math score"])
+plt.title(" lunch v performance in math)")
+
+plt.subplot(1,3,2)
+plt.scatter(studentsperformance_df["lunch"], studentsperformance_df["reading score"])
+plt.title("lunch v performance in reading")
+
+plt.subplot(1,3,3)
+plt.scatter(studentsperformance_df["lunch"], studentsperformance_df["writing score"])
+plt.title("lunch v perfomance in writing")
+
+plt.show()
+
+
+
+
+#3
+
+#Does the test preparation course seem to have an effect on the exam performances?
+
+plt.figure(figsize=(18,5))
+
+plt.subplot(1,3,1)
+plt.scatter(studentsperformance_df["test preparation course"], studentsperformance_df["math score"])
+plt.title("test preparation course v performance in math)")
+
+plt.subplot(1,3,2)
+plt.scatter(studentsperformance_df["test preparation course"], studentsperformance_df["reading score"])
+plt.title("test preparation course v performance in reading")
+
+plt.subplot(1,3,3)
+plt.scatter(studentsperformance_df["test preparation course"], studentsperformance_df["writing score"])
+plt.title("test preparation course v perfomance in writing")
+
+plt.show()
+
+
+
+
+#4
+#Which 2 exam scores are most correlated with each other?
