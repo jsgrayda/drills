@@ -1,0 +1,18 @@
+import pandas as pd
+import numpy as np
+target_list = [1,1,1,1,1,0,0,0,0,0]
+predictions_list = [0,1,0,1,0,1,0,1,0,1]
+
+
+df = pd.DataFrame(list(zip(target_list, predictions_list)), 
+               columns =['target_list', 'predictions_list']) 
+print (df)
+
+true_pos = len(df[(df['target_list'] == 1) & (df['predictions_list'] == 1)]) #true true
+false_pos = len(df[(df['target_list'] == 0) & (df['predictions_list'] == 1)])  # false positive
+true_neg = len(df[(df['target_list'] == 0) & (df['predictions_list'] == 0)]) #false false
+false_neg = len(df[(df['target_list'] == 1) & (df['predictions_list'] == 0)])  # false negative
+
+array = np.array([true_pos, false_pos, true_neg, false_neg])
+array_reshape = np.reshape(array, (2,2))
+print (array_reshape)
