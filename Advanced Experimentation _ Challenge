@@ -1,0 +1,72 @@
+#cant assume all data is normal
+#looks like theres only CH when i did dataframe['cntry'].unique()
+
+
+
+#Did people become less trusting from 2012 to 2014? Compute results for each country in the sample.
+#Did people become happier from 2012 to 2014? Compute results for each country in the sample.
+#Who reported watching more TV in 2012, men or women?
+#Who was more likely to believe people were fair in 2012, people living with a partner or people living alone?
+#Pick three or four of the countries in the sample and compare how often people met socially in 2014. Are there differences, and if so, which countries stand out?
+#Pick three or four of the countries in the sample and compare how often people took part in social activities, relative to others their age, in 2014. Are there differences, and if so, which countries stand out?
+
+import pandas as pd
+import seaborn as sns
+import urllib.request
+
+#saving csv from URL
+url='https://raw.githubusercontent.com/Thinkful-Ed/data-201-resources/master/ESS_practice_data/ESSdata_Thinkful.csv'
+
+with urllib.request.urlopen(url) as testfile, open('dataset.csv', 'w') as f: 
+    f.write(testfile.read().decode())
+    
+dataset = pd.read_csv('dataset.csv')
+print (dataset)
+
+# more or less trusting?
+CH_2012 = ((dataset['cntry'] == 'CH') & (dataset['year'] == 6) )
+CH_2014 = ((dataset['cntry'] == 'CH') & (dataset['year'] == 7) )
+
+ppltrst_CH_2012 = dataset['ppltrst'].where(CH_2012).dropna().mean()
+ppltrst_CH_2014 = dataset['ppltrst'].where(CH_2014).dropna().mean() 
+
+print('people trust in CH from 2012 to 2014 is %f and %f' % (ppltrst_CH_2012, ppltrst_CH_2014))
+
+#people become happier?
+happy_CH_2012 = dataset['happy'].where(CH_2012).dropna().mean()
+happy_CH_2014 = dataset['happy'].where(CH_2014).dropna().mean() 
+
+print('people happy in CH from 2012 to 2014 is %f and %f' % (happy_CH_2012, happy_CH_2014))
+
+
+M_2012 = ((dataset['year'] == 6) & (dataset['gndr'] == 1))
+M_TV_2012_avg = dataset['tvtot'].where(M_2012).dropna().mean()
+print (M_TV_2012_avg)
+
+F_2012 = ((dataset['year'] == 6) & (dataset['gndr'] == 2))
+F_TV_2012_avg = dataset['tvtot'].where(F_2012).dropna().mean()
+print (F_TV_2012_avg)
+
+# MF almost equally watched TV
+
+
+
+livewith_2012 = ((dataset['year'] == 6) & (dataset['partner'] == 1)) # 2012 living w people
+pplfair_livewith_2012_avg = dataset['pplfair'].where(livewith_2012).dropna().mean()
+print (pplfair_livewith_2012_avg)
+
+livewith_2012 = ((dataset['year'] == 6) & (dataset['partner'] == 2)) # 2012 living alone
+pplfair_livewith_2012_avg = dataset['pplfair'].where(livewith_2012).dropna().mean()
+print (pplfair_livewith_2012_avg)
+
+
+
+#how often people meet to watch TV
+yr_2014 = dataset['year'] == 7
+sclmeet_2014 = dataset['sclmeet'].where(yr_2014).dropna().mean()
+print(sclmeet_2014)
+
+
+#how often people took part in social activity in 2014
+sclact_2014 = dataset['sclact'].where(yr_2014).dropna().mean()
+print(sclact_2014)
