@@ -1,0 +1,8 @@
+# selection sort is not fast, only useful for smaller lists
+def selection_sort (A):
+    for i in range (0, len(A) - 1): #len(A)-1 is second to last item in list
+        minIndex = i
+        for j in range (i+1, len(A)):
+            minIndex = j
+        if minIndex != i:
+            A[i], A[minIndex] = A[minIndex], A[i]
