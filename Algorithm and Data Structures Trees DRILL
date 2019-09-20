@@ -1,0 +1,71 @@
+from collections import deque
+
+class Node:
+    def __init__(self, val):
+        self.left = None
+        self.right = None
+        self.val = val
+    
+    def __str__(self):
+
+           return str(self.val)
+           
+def BFT(node):
+
+    node.level = 1
+    queue = deque([node])
+    output = []
+    current_level = node.level
+
+    while len(queue)>0:
+
+          current_node = queue.popleft()
+
+          if (current_node.level > current_level):
+
+              current_level += 1
+
+          output.append(str(current_node))
+
+          if current_node.left != None:
+             current_node.left.level = current_level + 1 
+             queue.append(current_node.left) 
+
+          if current_node.right != None:
+             current_node.right.level = current_level + 1 
+             queue.append(current_node.right)
+
+                 
+ 
+    return ''.join(output)
+    
+    
+    
+    # Establish the initial root node and children
+root = Node('J')
+root.left = Node('O')
+root.right = Node('A')
+
+# Add the appropriate children for ‘O’
+root.left.left = Node('N')
+root.left.right = Node('N')
+# 'A' children
+root.right.left = Node('E')
+root.right.right = Node('A')
+
+#'N' children
+root.left.left.left = Node('L')
+root.left.left.right = Node('E')
+#'N' children
+root.left.right.left = Node('X')
+root.left.right.right = Node('A')
+
+#'E' children
+root.right.left.left = Node('N')
+root.right.left.right = Node('D')
+
+#'A' children
+root.right.right.left = Node('R')
+root.right.right.right = Node('A')
+
+BFT(root)
