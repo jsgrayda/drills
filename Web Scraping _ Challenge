@@ -1,0 +1,50 @@
+#Do a little scraping or API-calling of your own. 
+#Pick a new website and see what you can get out of it. 
+#Expect that you'll run into bugs and blind alleys, and rely on your mentor to help you get through.
+
+#Formally, your goal is to write a scraper that will:
+
+#1) Return specific pieces of information (rather than just downloading a whole page)
+#2) Iterate over multiple pages/queries
+#3) Save the data to your computer
+
+#Once you have your data, compute some statistical summaries and/or visualizations 
+#that give you some new insights into your scraping topic of interest. 
+#Write up a report from scraping code to summary and share it with your mentor.
+
+
+import scrapy
+from scrapy.crawler import CrawlerProcess
+from ElliotChoy_items import ElliotChoyItems # another file in computer
+
+
+
+class ElliotChoy(scrapy.Spider):
+    
+    name = "EChoy"
+    
+    start_urls = [
+        'https://www.youtube.com/user/ELLIOTCHOY/videos'
+    ]
+
+    def parse (self, response):
+        items = ElliotChoyItems()
+
+        vid_info = response.css('.ytd-grid-video-renderer::text').extract()
+    
+        items['vid_info'] = vid_info
+
+        yeild (items)
+
+
+        
+process = CrawlerProcess({
+    'FEED_FORMAT': 'json',         # Store data in JSON format.
+    'FEED_URI': 'EChoy.json',  # Name our storage file.
+    'LOG_ENABLED': False           # Turn off logging for now.
+})
+
+# Start the crawler with our spider.
+process.crawl(ElliotChoy)
+process.start()
+print('Success!')
