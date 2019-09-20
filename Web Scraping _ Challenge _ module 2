@@ -1,0 +1,5 @@
+import scrapy
+
+class ElliotChoyItems (scrapy.Item):
+    vid_info = scrapy.Field() #video name
+    pass
