@@ -1,0 +1,36 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from sqlalchemy import create_engine
+import warnings
+from scipy.stats import boxcox
+from scipy.stats import normaltest
+
+
+postgres_user = 'dsbc_student'
+postgres_pw = '7*.8G9QH21'
+postgres_host = '142.93.121.174'
+postgres_port = '5432'
+postgres_db = 'studentsperformance'
+
+engine = create_engine('postgresql://{}:{}@{}:{}/{}'.format(
+    postgres_user, postgres_pw, postgres_host, postgres_port, postgres_db))
+
+studentsperformance_df = pd.read_sql_query('select * from studentsperformance',con=engine)
+
+# no need for an open connection, 
+# as we're only doing a single query
+engine.dispose()
+
+studentsperformance_df.info()
+
+plt.hist(studentsperformance_df['math score'], bins='fd') #fd - freedman dia--rule, tells you which # of bins is the best
+plt.hist(boxcox(studentsperformance_df[studentsperformance_df["math score"] > 0]["math score"]))
+boxcox(plt.hist(studentsperformance_df['reading score']))
+plt.hist(studentsperformance_df['writing score'])
+
+#take weighted avg of exam scores + check if normal dist. + if not do box box + then check if normal dist
+exam_avg = (studentsperformance_df['writing score'] + studentsperformance_df['reading score'] + studentsperformance_df['math score'])/3
+plt.hist(exam_avg)
+plt.hist(boxcox(exam_avg))
+exam_avg_normstats = normaltest(boxcox(exam_avg))
