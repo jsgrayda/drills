@@ -1,0 +1,23 @@
+#1
+Eu_1 = 0
+for i in range(1, 1000):
+    if i % 3 == 0 or i % 5 == 0:
+        Eu_1 += i
+        
+print (Eu_1)
+
+
+#2
+fibNumbers = [1,2]
+while fibNumbers[-1] < 4000000:
+    fibNumbers.append(fibNumbers[-1] + fibNumbers[-2])
+del fibNumbers[-1]
+
+evenfibNumbers = []
+for num in fibNumbers:
+    if num % 2 == 0:
+        evenfibNumbers.append(num)
+        
+print(sum(evenfibNumbers))
+
+#3
